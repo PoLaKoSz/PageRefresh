@@ -1,0 +1,104 @@
+
+<!-- options menu (right click on icon, go to options)-->
+<html>
+  <head>
+    <title>Bing Rewards Options</title>
+
+    <style>
+      #content{
+        text-align: center;
+        background-color: white;
+        border-radius: 10px;
+        height: 40%;
+        width: 30%;
+
+        min-height: 250px;
+        min-width: 350px;
+
+        /* center horrizontally & vertically */
+        margin: auto;
+        position: absolute;
+        top: 0; left: 0; bottom: 0; right: 0;
+      }
+
+      #cool{
+        font-family: "League-Gothic", Courier;
+        font-size: 50px; text-transform: uppercase;
+        color: #707070;
+        text-shadow: 1px 1px 0px #eee, 2px 2px 0px #707070;
+      }
+
+      #cool2{
+        font-family: "League-Gothic", Courier;
+        font-size: 20px; text-transform: uppercase;
+        color: #252525;
+      }
+
+      #search{ 
+        text-align: center;  /* center align text inside text field */
+        font: bold 12px/25px Arial, sans-serif;
+        background: #C1CDCD;
+      
+        height:30px;
+        width: 80%;
+        border-radius: 2px;
+        margin: 0 auto;
+        border: none;
+      } 
+
+      /* Need to make save button look cool */
+      #save{
+
+        font-size: 1.3em;
+        font-weight:bold;
+        background-color: #0298D3;
+        color: white;
+
+        height:30px;
+        width: 80%;
+        border-radius: 2px;
+        margin: 0 auto;
+        border: none;
+      }
+
+      #input{
+        float: left;
+        width:50%;
+      }
+      #button{
+        float:left;
+        width:50%;
+      }
+
+      body{
+        background-color: #DBD5D3;
+      }
+
+    </style>
+  </head>
+
+  <body>
+    <div id="content">
+      <h1 id ="cool">Options</h1>
+      <hr>
+
+      <h2 id ="cool2">How many times to search:</h2>
+
+      <div id="input">
+        <form>
+          <input type="text" id="search"/>
+        </form>
+      </div>
+
+      <div id="button">
+        <form>
+          <input type="button" id="save" value="Save"></input>
+        </form>
+      </div>
+      
+    </div>
+  </body>
+
+  <script src="options.js"></script>
+
+</html>

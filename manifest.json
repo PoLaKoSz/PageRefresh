@@ -1,0 +1,30 @@
+{
+  "name": "Bing Rewards Automation",
+  "description": "Automate earning Bing Rewards",
+  "version": "3.0",
+  "manifest_version": 2,
+
+  "permissions": [
+    "activeTab","tabs", "https://*/*", "http://*/*"
+  ],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  
+  "permissions": [
+    "tabs", "storage"
+  ],
+  
+  "icons": { "16": "icon_128.png",
+           "48": "icon_128.png",
+          "128": "icon_128.png" },
+
+  "browser_action": {
+  	"default_icon": "icon_128.png",
+    "default_title": "Bing Rewards"
+  },
+
+  "options_page": "options.html"
+
+}
