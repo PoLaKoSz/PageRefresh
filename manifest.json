@@ -1,7 +1,7 @@
 {
-  "name": "Bing Rewards Automation",
-  "description": "Automate earning Bing Rewards",
-  "version": "3.0",
+  "name": "Page Refresh",
+  "description": "Automate page refreshing and more!",
+  "version": "1.0",
   "manifest_version": 2,
 
   "permissions": [
@@ -22,7 +22,7 @@
 
   "browser_action": {
   	"default_icon": "icon_128.png",
-    "default_title": "Bing Rewards"
+    "default_title": "Page Refresh"
   },
 
   "options_page": "options.html"

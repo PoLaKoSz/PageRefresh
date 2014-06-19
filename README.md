@@ -1,6 +1,6 @@
-Bing Awards Automated
+PageRefresh
 ===========================
-Getting free money/prizes!
+Chrome extension that refreshes a page for as long as you want.
 
 Updates! - v3.0
 ---------------------------
@@ -80,20 +80,7 @@ Chrome Webstore
 In the coming future, I will upload it to the webstore, am still looking to 
 improve features and just mess around with it for now. Also ....
 
-Morality
-----------------------------
-This can't be illegal ... I am making an extension do something that I am allowed
-to do(yes not a sound argument, but good enough). However, that doesn't mean its right.
-
-Well, its a good thing I don't agree with Kant, because according to him 
-(formula of universal law), this would be immoral. Now, we can't all do this
-and have the world function. And, I guess if we did, Bing Rewards would 
-cease to exist anyway. I am relying on the prediction that no one is really
-going to see this, even though it is public, and will continue messing with it.
-As long as very few people use this, we're A OK.
 
 ===========================
-I made the logo that is included in the extension. Since my gimp/photoshop skills
-are still extremely novice, I can't imagine anyone actually wants to use it for other things.
-BUT if you do (yay?), go ahead. Somewhere, I guess, give me credit. I won't cry if you
-don't, but it just makes you a decent person I guess.
+The icon that is included is available on www.iconfinder.com with a MIT 
+licence. I could not find any way to credit someone easily, so ... yea.

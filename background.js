@@ -11,10 +11,13 @@ var DELAY = 5000; /* delay inbetween searches, in milliseconds */
   before the onClicked event, the options page will show 10 in the
   text field
 */
-var preference = localStorage["times_to_search"];
-if (!preference) {
-  preference = "10";
-  localStorage["times_to_search"] = "10";
+var timesRepeat = localStorage["times_to_refresh"];
+//var DELAY = localStorage["delay"];
+//var randomYesNo = localStorage["randomYesNo"];
+
+if (!timesRepeat) {
+  timesRepeat = "10";
+  localStorage["times_to_refresh"] = "10";
 }
 
 /*
@@ -31,24 +34,21 @@ chrome.browserAction.onClicked.addListener(function(){
   chrome.tabs.getSelected(null, function(tab){
 
     /* get saved value for how many times to serach. */
-    preference = localStorage["times_to_search"];
+    timesRepeat = localStorage["times_to_refresh"];
     
     /* if doesn't exit, set to 10, and store */
-    if (!preference) {
-      preference = "10";
-      localStorage["times_to_search"] = "10";
+    if (!timesRepeat) {
+      timesRepeat = 10;
+      localStorage["times_to_refresh"] = 10;
     }
-
-    /* convert to int */
-    var timesRepeat = parseInt(preference);
 
     /* incase user entered negative value, set to < 1,
     no point in the extension if you never run it... */
     if(timesRepeat < 1)
       timesRepeat = 1;
 
-    var a = 0; /* will store random int to search */
-    var x = 0; /* counter */
+    var a = 0; 
+    var counter = 0; 
 
     /*
       recursive function that searches a random int in bing,
@@ -57,7 +57,7 @@ chrome.browserAction.onClicked.addListener(function(){
     (function search(){
 
       /* check if counter is less than times to search*/
-      if(x < timesRepeat){
+      if(counter < timesRepeat){
 
         /* get random int from 1 too 100,
            update current tab with a bing search of the int
@@ -65,7 +65,7 @@ chrome.browserAction.onClicked.addListener(function(){
         a = Math.floor((Math.random()*100)+1);
         chrome.tabs.update(tab.id,{'url': "http://www.bing.com/search?q=" + a});
 
-        x = x + 1;               
+        counter += 1;               
         setTimeout(search, DELAY);  
       }
       

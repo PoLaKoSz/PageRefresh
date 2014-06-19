@@ -1,7 +1,7 @@
 // Saves options to localStorage.
 function save_options() {
-  var select = document.getElementById("search").value;
-  localStorage["times_to_search"] = select;
+  var select = parseInt(document.getElementById("search").value);
+  localStorage["times_to_refresh"] = select;
 
   // Update status to let user know options were saved.
   var status = document.getElementById("save");
@@ -13,7 +13,7 @@ function save_options() {
 
 // Restores select box state to saved value from localStorage.
 function restore_options() {
-  var pref = localStorage["times_to_search"];
+  var pref = localStorage["times_to_refresh"];
   if (!pref) {
     return;
   }
