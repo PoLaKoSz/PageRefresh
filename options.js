@@ -3,6 +3,9 @@ function save_options() {
   var numRefresh = parseInt(document.getElementById("numRefresh").value);
   localStorage["times_to_refresh"] = numRefresh;
 
+  var delay = parseInt(document.getElementById("delay").value);
+  localStorage["delay"] = delay;
+
   var appendInt = document.getElementById("appendInt").checked;
   localStorage["append_int"] = appendInt;
 
@@ -23,20 +26,31 @@ function save_options() {
 
 function restore_options() { // populates options from localStorage.
   var numRefresh = localStorage["times_to_refresh"];
+  var delay = localStorage["delay"];
   var appendInt = localStorage["append_int"];
   var inputURL = localStorage["input_url"];
 
-  if (!numRefresh || !appendInt || !inputURL) {
+  /*
+  if (!numRefresh || !appendInt || !inputURL || !delay) {
     return;
   }
-
+  */
+  
   //chrome.extension.getBackgroundPage().console.log("restore:");  
   //chrome.extension.getBackgroundPage().console.log(appendInt === 'true');
 
-  document.getElementById("numRefresh").value = numRefresh;
-  document.getElementById("appendInt").checked = (appendInt === 'true');
-  document.getElementById("inputURL").value = inputURL;
- 
+  if(numRefresh)
+    document.getElementById("numRefresh").value = numRefresh;
+  
+  if(delay)
+    document.getElementById("delay").value = delay;
+  
+  if(appendInt)
+    document.getElementById("appendInt").checked = (appendInt === 'true');
+  
+  if(inputURL)
+    document.getElementById("inputURL").value = inputURL;
+
 }
 
 // Event Listners

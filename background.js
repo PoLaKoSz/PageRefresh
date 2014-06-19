@@ -2,9 +2,6 @@
   script that implements searching funtionality
 */
 
-var DELAY = 5000; /* delay inbetween searches, in milliseconds */
-
-
 /*
   Set the default of times to search, when the person has loaded 
   the extension for the first time, to 10. Since its done
@@ -14,7 +11,7 @@ var DELAY = 5000; /* delay inbetween searches, in milliseconds */
 var numRefresh = localStorage["times_to_refresh"];
 var appendInt = localStorage["append_int"];
 var inputURL = localStorage["input_url"];
-//var DELAY = localStorage["delay"];
+var DELAY = localStorage["delay"];
 
 if (!numRefresh) {
   numRefresh = 10;
@@ -31,6 +28,11 @@ if (!inputURL) {
   localStorage["input_url"] = inputURL;
 }
 
+if(!DELAY){
+  DELAY = 5;
+  localStorage["delay"] = numRefresh;
+}
+
 //console.log("yo");
 
 /*
@@ -38,6 +40,7 @@ if (!inputURL) {
 */
 chrome.browserAction.onClicked.addListener(function(){  
 
+  DELAY *= 1000; //convert to milliseconds
   /*
    Get the current tab, tab.id is passed into tab.update so that 
    only the tab the user is at when he/she presses the button gets 

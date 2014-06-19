@@ -29,13 +29,14 @@
       }
 
       .cool2{
-        font-family: "League-Gothic", Courier;
-        font-size: 20px; text-transform: uppercase;
+        font-family: "Arial";
+        font-size: 20px; /*text-transform: uppercase;*/
         color: #252525;
       }
 
       .inputField{ 
         display: inline;
+        float: right;
 
         text-align: center;  /* center align text inside text field */
         font: 12px/25px Arial, sans-serif;
@@ -44,6 +45,7 @@
         height:30px;
         border-radius: 2px;
         margin: 0 auto;
+        margin-right: 30px;
         border: none;
       } 
 
@@ -84,7 +86,8 @@
 
       <form class="inLine">
         <p class ="cool2">URL to refresh:
-          <input type="text" class="inputField" id="inputURL"/>
+          <input type="text" style = "width: 300px"
+          class="inputField" id="inputURL"/>
         </p>
       </form>
 
@@ -97,7 +100,15 @@
 
       <form class="inLine">
         <p class="cool2"># of times to refresh:
-          <input type="text" class="inputField" id="numRefresh"/>
+          <input type="text" style = "width: 70px" 
+          class="inputField" id="numRefresh"/>
+        </p>
+      </form>
+
+      <form class="inLine">
+        <p class="cool2">Delay (seconds) between refreshes:
+          <input type="text" style = "width: 70px"
+          class="inputField" id="delay"/>
         </p>
       </form>
 
