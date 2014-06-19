@@ -9,8 +9,8 @@
         text-align: center;
         background-color: white;
         border-radius: 10px;
-        height: 40%;
-        width: 30%;
+        height: 60%;
+        width: 40%;
 
         min-height: 250px;
         min-width: 350px;
@@ -28,29 +28,33 @@
         text-shadow: 1px 1px 0px #eee, 2px 2px 0px #707070;
       }
 
-      #cool2{
+      .cool2{
         font-family: "League-Gothic", Courier;
         font-size: 20px; text-transform: uppercase;
         color: #252525;
       }
 
-      #search{ 
+      .inputField{ 
+        display: inline;
+
         text-align: center;  /* center align text inside text field */
-        font: bold 12px/25px Arial, sans-serif;
+        font: 12px/25px Arial, sans-serif;
         background: #C1CDCD;
       
         height:30px;
-        width: 80%;
         border-radius: 2px;
         margin: 0 auto;
         border: none;
       } 
 
-      /* Need to make save button look cool */
+      .inLine{
+        margin: 0; 
+        padding: 0;
+      }
+
       #save{
 
         font-size: 1.3em;
-        font-weight:bold;
         background-color: #0298D3;
         color: white;
 
@@ -61,13 +65,9 @@
         border: none;
       }
 
-      #input{
-        float: left;
-        width:50%;
-      }
       #button{
-        float:left;
-        width:50%;
+        float:center;
+        width:100%;
       }
 
       body{
@@ -80,15 +80,26 @@
   <body>
     <div id="content">
       <h1 id ="cool">Options</h1>
-      <hr>
+      <hr> <!- Horizontal Line->
 
-      <h2 id ="cool2">How many times to search:</h2>
+      <form class="inLine">
+        <p class ="cool2">URL to refresh:
+          <input type="text" class="inputField" id="inputURL"/>
+        </p>
+      </form>
 
-      <div id="input">
-        <form>
-          <input type="text" id="search"/>
-        </form>
-      </div>
+      <form class="inLine">
+        <p class ="cool2">
+          <input type="checkbox" id="append"/>
+          Append random integer to URL
+        </p>
+      </form>
+
+      <form class="inLine">
+        <p class="cool2"># of times to refresh:
+          <input type="text" class="inputField" id="search"/>
+        </p>
+      </form>
 
       <div id="button">
         <form>

@@ -1,6 +1,6 @@
 {
   "name": "Page Refresh",
-  "description": "Automate page refreshing and more!",
+  "description": "Automate page refreshing for a URL!",
   "version": "1.0",
   "manifest_version": 2,
 
