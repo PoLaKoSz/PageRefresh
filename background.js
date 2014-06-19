@@ -11,14 +11,27 @@ var DELAY = 5000; /* delay inbetween searches, in milliseconds */
   before the onClicked event, the options page will show 10 in the
   text field
 */
-var timesRepeat = localStorage["times_to_refresh"];
+var numRefresh = localStorage["times_to_refresh"];
+var appendInt = localStorage["append_int"];
+var inputURL = localStorage["input_url"];
 //var DELAY = localStorage["delay"];
-//var randomYesNo = localStorage["randomYesNo"];
 
-if (!timesRepeat) {
-  timesRepeat = "10";
-  localStorage["times_to_refresh"] = "10";
+if (!numRefresh) {
+  numRefresh = 10;
+  localStorage["times_to_refresh"] = numRefresh;
 }
+
+if (!appendInt) {
+  appendInt = 'true';
+  localStorage["append_int"] = appendInt;
+}
+
+if (!inputURL) {
+  inputURL = "http://www.bing.com/search?q=";
+  localStorage["input_url"] = inputURL;
+}
+
+//console.log("yo");
 
 /*
   What happens when the extension icon is clicked ...
@@ -33,19 +46,27 @@ chrome.browserAction.onClicked.addListener(function(){
   */
   chrome.tabs.getSelected(null, function(tab){
 
-    /* get saved value for how many times to serach. */
-    timesRepeat = localStorage["times_to_refresh"];
-    
-    /* if doesn't exit, set to 10, and store */
-    if (!timesRepeat) {
-      timesRepeat = 10;
-      localStorage["times_to_refresh"] = 10;
+    numRefresh = localStorage["times_to_refresh"];
+    appendInt = localStorage["append_int"];
+    inputURL = localStorage["input_url"];
+
+    if (!numRefresh) {
+      numRefresh = 10;
+      localStorage["times_to_refresh"] = numRefresh;
     }
 
-    /* incase user entered negative value, set to < 1,
-    no point in the extension if you never run it... */
-    if(timesRepeat < 1)
-      timesRepeat = 1;
+    if (!appendInt) {
+      appendInt = 'true';
+      localStorage["append_int"] = appendInt;
+    }
+
+    if (!inputURL) {
+      inputURL = "http://www.bing.com/search?q=";
+      localStorage["input_url"] = inputURL;
+    }
+
+    if(numRefresh < 1) // have to refresh at least once
+      numRefresh = 1;
 
     var a = 0; 
     var counter = 0; 
@@ -56,14 +77,14 @@ chrome.browserAction.onClicked.addListener(function(){
     */
     (function search(){
 
-      /* check if counter is less than times to search*/
-      if(counter < timesRepeat){
+      if(counter < numRefresh){
 
-        /* get random int from 1 too 100,
-           update current tab with a bing search of the int
-         */
-        a = Math.floor((Math.random()*100)+1);
-        chrome.tabs.update(tab.id,{'url': "http://www.bing.com/search?q=" + a});
+        if(appendInt === 'true') {
+          a = Math.floor((Math.random()*100)+1);
+          chrome.tabs.update(tab.id,{'url': inputURL + a});
+        }
+
+        else {chrome.tabs.update(tab.id,{'url': inputURL});}
 
         counter += 1;               
         setTimeout(search, DELAY);  
