@@ -11,12 +11,12 @@ function save_options() {
     localStorage["input_url"] = getUiElementByID("inputURL").value;
 
     var status = getUiElementByID("save");
-    status.value = "Saved!"
-    status.style.background = '#0dd22e';
+    status.innerHTML = "Saved!"
+    status.classList.add("saved-save-btn-background");
 
     setTimeout(function() {
-        status.value = "Save";
-        status.style.background = '#0298D3';
+        status.innerHTML = "Save";
+        status.classList.remove("saved-save-btn-background");
     }, 2000);
 }
 

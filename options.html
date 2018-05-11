@@ -4,136 +4,82 @@
 <head>
     <title>Page Refresh Options</title>
 
-    <style>
-        #content {
-            text-align: center;
-            background-color: white;
-            border-radius: 10px;
-            height: 60%;
-            width: 40%;
-            min-height: 250px;
-            min-width: 350px;
-            /* center horrizontally & vertically */
-            margin: auto;
-            position: absolute;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            right: 0;
-        }
-        
-        #cool {
-            font-family: "League-Gothic", Courier;
-            font-size: 50px;
-            text-transform: uppercase;
-            color: #707070;
-            text-shadow: 1px 1px 0px #eee, 2px 2px 0px #707070;
-        }
-        
-        .cool2 {
-            font-family: "Arial";
-            font-size: 20px;
-            /*text-transform: uppercase;*/
-            color: #252525;
-        }
-        
-        .inputField {
-            display: inline;
-            float: right;
-            text-align: center;
-            /* center align text inside text field */
-            font: 12px/25px Arial, sans-serif;
-            background: #C1CDCD;
-            height: 30px;
-            border-radius: 2px;
-            margin: 0 auto;
-            margin-right: 30px;
-            border: none;
-        }
-        
-        .inLine {
-            margin: 0;
-            padding: 0;
-        }
-        
-        #save {
-            font-size: 1.3em;
-            background-color: #0298D3;
-            color: white;
-            height: 30px;
-            width: 80%;
-            border-radius: 2px;
-            margin: 0 auto;
-            border: none;
-        }
-        
-        #button {
-            float: center;
-            width: 100%;
-        }
-        
-        body {
-            background-color: #DBD5D3;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 
-<body>
-    <div id="content">
-        <h1 id="cool">Options</h1>
-        <hr>
+<body class="center-children">
+    <div class="settings-container">
+        <p class="menu-name">Options</p>
 
-        <form class="inLine">
-            <p class="cool2">URL to refresh:
-                <input type="text" style="width: 300px" class="inputField" id="inputURL" />
-            </p>
-        </form>
-
-        <form class="inLine">
-            <p class="cool2">
-                <input type="checkbox" id="appendInt" /> Append random integer to URL
-            </p>
-        </form>
-
-        <form class="inLine">
-            <p class="cool2">Random integer min:
-                <input type="number" style="width: 70px" class="inputField" id="randIntMin" />
-            </p>
-        </form>
-
-        <form class="inLine">
-            <p class="cool2">Random integer max:
-                <input type="number" style="width: 70px" class="inputField" id="randIntMax" />
-            </p>
-        </form>
-
-        <form class="inLine">
-            <p class="cool2"># of times to refresh:
-                <input type="number" style="width: 70px" class="inputField" id="numRefresh" />
-            </p>
-        </form>
-
-        <form class="inLine">
-            <p class="cool2">Delay (seconds) between refreshes:
-                <input type="number" style="width: 70px" class="inputField" id="delay" />
-            </p>
-        </form>
-
-        <form class="inLine">
-            <p class="cool2">+/- seconds delay range:
-                <input type="number" style="width: 70px" class="inputField" id="plus_delay" />
-            </p>
-        </form>
-
-        <div id="button">
-            <form>
-                <input type="button" id="save" value="Save"></input>
-            </form>
+        <div class="row">
+            <div class="col-2">
+                URL to refresh
+            </div>
+            <div class="col-2">
+                <input type="text" id="inputURL">
+            </div>
         </div>
 
+        <div class="row">
+            <div class="col-2">
+                Refresh count
+            </div>
+            <div class="col-2">
+                <input type="number" id="numRefresh">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-2">
+                Delay between refreshes
+            </div>
+            <div class="col-2">
+                <input type="number" id="delay">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-2">
+                <span class="submodule">+/- range added to the fix delay</span>
+            </div>
+            <div class="col-2">
+                <input type="number" id="plus_delay">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-2">
+                Append random integer to URL
+            </div>
+            <div class="col-2">
+                <input type="checkbox" id="appendInt">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-2">
+                <span class="submodule">Minimum integer</span>
+            </div>
+            <div class="col-2">
+                <input type="number" id="randIntMin">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-2">
+                <span class="submodule">Maximum integer</span>
+            </div>
+            <div class="col-2">
+                <input type="number" id="randIntMax">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="save-btn vertical-center-text normal-save-btn-background" id="save">Save</div>
+        </div>
     </div>
 </body>
 
-<script src="options.js"></script>
+<script src="options.js "></script>
 
 </html>
