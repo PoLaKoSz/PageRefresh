@@ -4,6 +4,8 @@
 chrome.browserAction.onClicked.addListener(function() {
     var numRefresh = localStorage["numRefresh"];
     var appendInt = localStorage["append_int"];
+    var appendIntMin = localStorage["append_int_min"];
+    var appendIntMax = localStorage["append_int_max"];
     var inputURL = localStorage["input_url"];
     var DELAY = localStorage["delay"];
     var PLUS_DELAY = localStorage["plus_delay"];
@@ -20,7 +22,7 @@ chrome.browserAction.onClicked.addListener(function() {
         (function search() {
             if (numRefresh == 0 || counter < numRefresh) {
                 if (appendInt === 'true') {
-                    var randomInt = Math.floor((Math.random() * 100) + 1);
+                    var randomInt = Math.floor((Math.random() * appendIntMax) + appendIntMin);
                     chrome.tabs.update(tab.id, { 'url': inputURL + randomInt });
                 } else {
                     chrome.tabs.update(tab.id, { 'url': inputURL });
