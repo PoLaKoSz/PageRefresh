@@ -22,8 +22,8 @@ chrome.browserAction.onClicked.addListener(function() {
         (function search() {
             if (REFRESH_COUNT == 0 || counter < REFRESH_COUNT) {
                 if (IS_APPEND_INT === 'true') {
-                    var randomInt = Math.floor((Math.random() * APPEND_INT_MAX) + APPEND_INT_MIN);
-                    chrome.tabs.update(tab.id, { 'url': INPUT_URL + randomInt });
+                    var randomInt = Math.floor((Math.random() * (APPEND_INT_MAX - APPEND_INT_MIN + 1)) + APPEND_INT_MIN);
+                    chrome.tabs.update(tab.id, { 'url': INPUT_URL + "" + randomInt });
                 } else {
                     chrome.tabs.update(tab.id, { 'url': INPUT_URL });
                 }
