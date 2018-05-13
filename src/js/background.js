@@ -22,7 +22,7 @@ chrome.browserAction.onClicked.addListener(function() {
         (function search() {
             if (REFRESH_COUNT == 0 || counter < REFRESH_COUNT) {
                 if (IS_APPEND_INT === 'true') {
-                    var randomInt = Math.floor((Math.random() * (APPEND_INT_MAX - APPEND_INT_MIN + 1)) + APPEND_INT_MIN);
+                    var randomInt = getRandomBetween(APPEND_INT_MIN, APPEND_INT_MAX);
                     chrome.tabs.update(tab.id, { 'url': INPUT_URL + "" + randomInt });
                 } else {
                     chrome.tabs.update(tab.id, { 'url': INPUT_URL });
@@ -30,7 +30,7 @@ chrome.browserAction.onClicked.addListener(function() {
 
                 counter += 1;
 
-                var small_delay = Math.floor(Math.random() * 10) - PLUS_DELAY;
+                var small_delay = getRandomBetween(PLUS_DELAY * (-1), PLUS_DELAY);
                 var real_delay = (DELAY + small_delay) * 1000;
 
                 setTimeout(search, real_delay);
@@ -38,3 +38,10 @@ chrome.browserAction.onClicked.addListener(function() {
         })();
     });
 });
+
+/**
+ * Generate a random integer between minimumInt (included) and maximumInt (included)
+ */
+function getRandomBetween(minimumInt, maximumInt) {
+    return Math.floor((Math.random() * (maximumInt - minimumInt + 1)) + minimumInt);
+}
