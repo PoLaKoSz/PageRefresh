@@ -1,14 +1,18 @@
+var REFRESH_LOOP;
+
 /*
   What happens when the extension icon is clicked ...
 */
 chrome.browserAction.onClicked.addListener(function() {
-    var REFRESH_COUNT = parseInt(localStorage["numRefresh"]);
-    var IS_APPEND_INT = localStorage["append_int"];
-    var APPEND_INT_MIN = parseInt(localStorage["append_int_min"]);
-    var APPEND_INT_MAX = parseInt(localStorage["append_int_max"]);
-    var INPUT_URL = localStorage["input_url"];
-    var DELAY = parseInt(localStorage["delay"]);
-    var PLUS_DELAY = parseInt(localStorage["plus_delay"]);
+    var refreshCount = parseInt(localStorage["numRefresh"]);
+    var isAppendInt = localStorage["append_int"];
+    var appendIntMin = parseInt(localStorage["append_int_min"]);
+    var appendIntMax = parseInt(localStorage["append_int_max"]);
+    var inputUrl = localStorage["input_url"];
+    var fixDelay = parseInt(localStorage["delay"]);
+    var randomDelay = parseInt(localStorage["plus_delay"]);
+
+    chrome.browserAction.setBadgeBackgroundColor({ color: "black" });
 
     /*
      Get the current tab, tab.id is passed into tab.update so that 
@@ -17,31 +21,104 @@ chrome.browserAction.onClicked.addListener(function() {
      working, and also "exit" the extension by closing the tab.
     */
     chrome.tabs.getSelected(null, function(tab) {
-        var counter = 0;
+        var small_delay = getRandomBetween(randomDelay * (-1), randomDelay);
+        var fullDelayInMs = (fixDelay + small_delay) * 1000;
 
-        (function search() {
-            if (REFRESH_COUNT == 0 || counter < REFRESH_COUNT) {
-                if (IS_APPEND_INT === 'true') {
-                    var randomInt = getRandomBetween(APPEND_INT_MIN, APPEND_INT_MAX);
-                    chrome.tabs.update(tab.id, { 'url': INPUT_URL + "" + randomInt });
-                } else {
-                    chrome.tabs.update(tab.id, { 'url': INPUT_URL });
-                }
+        refreshPage(tab, refreshCount, isAppendInt, appendIntMin, appendIntMax, inputUrl, fullDelayInMs);
 
-                counter += 1;
-
-                var small_delay = getRandomBetween(PLUS_DELAY * (-1), PLUS_DELAY);
-                var real_delay = (DELAY + small_delay) * 1000;
-
-                setTimeout(search, real_delay);
-            }
-        })();
+        REFRESH_LOOP = setInterval(function() {
+            refreshPage(tab, refreshCount, isAppendInt, appendIntMin, appendIntMax, inputUrl, fullDelayInMs);
+        }, fullDelayInMs);
     });
 });
 
 /**
+ * Refresh the current page and update the Extension icon's badge
+ * @param {*} tab Tab
+ * @param {*} refreshCount int
+ * @param {*} isAppendInt bool
+ * @param {*} appendIntMin int
+ * @param {*} appendIntMax int
+ * @param {*} inputUrl string
+ * @param {*} fullDelayInMs int
+ */
+function refreshPage(tab, refreshCount, isAppendInt, appendIntMin, appendIntMax, inputUrl, fullDelayInMs) {
+    var counter = 0;
+    var startTime = Date.now();
+
+    if (refreshCount == 0 || counter < refreshCount) {
+        if (isAppendInt === 'true') {
+            var randomInt = getRandomBetween(appendIntMin, appendIntMax);
+            chrome.tabs.update(tab.id, { 'url': inputUrl + "" + randomInt }, catchTabClosedException);
+        } else {
+            chrome.tabs.update(tab.id, { 'url': inputUrl }, catchTabClosedException);
+        }
+
+        counter += 1;
+
+        setTimeout(function() {
+            updateExtensionBadge(startTime, fullDelayInMs, tab);
+        }, 1000);
+    }
+}
+
+/**
  * Generate a random integer between minimumInt (included) and maximumInt (included)
+ * 
+ * @param {*} minimumInt int
+ * @param {*} maximumInt int
  */
 function getRandomBetween(minimumInt, maximumInt) {
     return Math.floor((Math.random() * (maximumInt - minimumInt + 1)) + minimumInt);
+}
+
+/**
+ * When an Exception occurs this method will be called
+ */
+function catchTabClosedException() {
+    if (chrome.runtime.lastError) {
+        clearInterval(REFRESH_LOOP);
+    }
+}
+
+/**
+ * Update the Extension icon's small badge to show when will be the next page refresh
+ * 
+ * @param {*} startTime int
+ * @param {*} fullDelayInMs int
+ * @param {*} tab Tab
+ */
+function updateExtensionBadge(startTime, fullDelayInMs, tab) {
+    chrome.tabs.get(tab.id, function() {
+        stopBadgeUpdateIfTabDestroyed(startTime, fullDelayInMs, tab);
+    });
+}
+
+/**
+ * This method help to stop the badge update if the tab is not exists anymore
+ * @param {*} startTime int
+ * @param {*} fullDelayInMs int
+ * @param {*} tab Tab
+ */
+function stopBadgeUpdateIfTabDestroyed(startTime, fullDelayInMs, tab) {
+    if (chrome.runtime.lastError) {
+        chrome.browserAction.setBadgeText({ text: "0" });
+    } else {
+        var currentTime = Date.now();
+        var elapsedMs = currentTime - startTime;
+
+        var remainingSec = Math.floor((fullDelayInMs - elapsedMs) / 1000);
+
+        chrome.browserAction.setBadgeText({
+            text: "" + remainingSec
+        });
+
+        if (remainingSec < 0) {
+            chrome.browserAction.setBadgeText({ text: "0" });
+        } else {
+            setTimeout(function() {
+                updateExtensionBadge(startTime, fullDelayInMs, tab);
+            }, 1000);
+        }
+    }
 }
